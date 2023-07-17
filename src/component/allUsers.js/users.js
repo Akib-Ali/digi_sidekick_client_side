@@ -7,7 +7,9 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "../navbar/navbar"
 import { Audio, Grid, Oval } from 'react-loader-spinner'
 import { ToastContainer, toast } from 'react-toastify';
+import ReactPaginate from 'react-paginate';
 import 'react-toastify/dist/ReactToastify.css';
+import { FiChevronsRight, FiChevronsLeft } from 'react-icons/fi'
 
 
 
@@ -16,6 +18,8 @@ const ShowUser = () => {
     const [data, setData] = useState([])
     const [error, setError] = useState(false)
     const [isloading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 5;
 
 
     useEffect(() => {
@@ -30,6 +34,18 @@ const ShowUser = () => {
     }
 
     console.log(data, "data receiv")
+
+    //pagination
+    const indexOfLastProject = (currentPage + 1) * itemsPerPage;
+    const indexOfFirstProject = indexOfLastProject - itemsPerPage;
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const pageCount = Math.ceil(data.length / itemsPerPage);
+    const offset = currentPage * itemsPerPage;
+    const currentData = data.slice(offset, offset + itemsPerPage);
     return (
         <>
             <div className="layout-wrapper layout-content-navbar">
@@ -75,7 +91,7 @@ const ShowUser = () => {
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
-                                                {data.length > 0 && data.map((elem, index) => {
+                                                {data.length > 0 && currentData.map((elem, index) => {
                                                     return (
                                                         <tbody className="table-border-bottom-0" key={index}>
                                                             <tr>
@@ -90,7 +106,6 @@ const ShowUser = () => {
                                                                         <button className="btn btn-sm btn-primary">Edit</button>
                                                                     </Link>
 
-                                                                    {/* <DeleteModal id={elem._id} fetchapi={fetchapi} /> */}
                                                                     <DeleteModal
                                                                         id={elem._id}
                                                                         refetch={getData}
@@ -102,16 +117,58 @@ const ShowUser = () => {
                                                 })}
                                             </table>
 
+
+
                                         </div>
                                     </div>
                                 )}
                                 {/* Here contain end */}
+                                <div className="themesflat-pagination clearfix mb-5" style={{ textAlign: "center" }}>
+
+                                    {data.length > 3 &&
+                                        <ReactPaginate
+                                            previousLabel={<FiChevronsLeft />}
+                                            nextLabel={<FiChevronsRight />}
+                                            pageClassName="page-item"
+                                            pageLinkClassName="page-link"
+                                            previousClassName="page-item"
+                                            previousLinkClassName="page-link"
+                                            nextClassName="page-item"
+                                            nextLinkClassName="page-link"
+                                            breakLabel="..."
+                                            breakClassName="page-item"
+                                            breakLinkClassName="page-link"
+                                            pageCount={pageCount}
+                                            marginPagesDisplayed={2}
+                                            pageRangeDisplayed={5}
+                                            onPageChange={handlePageClick}
+                                            containerClassName="pagination m-0"
+                                            activeClassName="active"
+                                        />
+                                    }
+
+
+
+
+
+
+
+
+
+                                </div>
+
+
+
                             </div>
 
                             {/* <Footer /> */}
 
+                            <div className="content-backdrop fade">
 
-                            <div className="content-backdrop fade"></div>
+
+
+
+                            </div>
                         </div>
                         {/* <!-- Content wrapper --> */}
                     </div>
@@ -121,6 +178,11 @@ const ShowUser = () => {
                 {/* <!-- Overlay --> */}
                 <div className="layout-overlay layout-menu-toggle"></div>
             </div>
+
+
+            {/* raect paginati */}
+
+
         </>
     )
 }
@@ -141,9 +203,9 @@ const DeleteModal = (props) => {
 
         let api = await axios({
             method: "delete",
-            url:(`http://localhost:8050/user/${props.id}`)
-            })
-            toast.success('You have delete a record successfully!');
+            url: (`http://localhost:8050/user/${props.id}`)
+        })
+        toast.success('You have delete a record successfully!');
         props.refetch()
 
         onCloseModal()
@@ -155,7 +217,7 @@ const DeleteModal = (props) => {
 
     return (
         <>
-        <button className="btn btn-sm btn-danger" onClick={onOpenModal}>Delete</button>
+            <button className="btn btn-sm btn-danger" onClick={onOpenModal}>Delete</button>
             <Modal open={open} center onClose={onCloseModal}>
                 <br></br>
                 <h2>Are you sure you want to delete?</h2>
