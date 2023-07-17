@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "../navbar/navbar"
 import { Audio, Grid, Oval } from 'react-loader-spinner'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -138,12 +141,9 @@ const DeleteModal = (props) => {
 
         let api = await axios({
             method: "delete",
-            url: (`https://wild-gold-bull-sock.cyclic.app/delete-blog/${props.id}`),
-            headers: {
-                authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`
-            }
-
-        })
+            url:(`http://localhost:8050/user/${props.id}`)
+            })
+            toast.success('You have delete a record successfully!');
         props.refetch()
 
         onCloseModal()
@@ -155,13 +155,27 @@ const DeleteModal = (props) => {
 
     return (
         <>
-            <button className="btn btn-sm btn-danger" onClick={onOpenModal}>Delete</button>
+        <button className="btn btn-sm btn-danger" onClick={onOpenModal}>Delete</button>
             <Modal open={open} center onClose={onCloseModal}>
                 <br></br>
                 <h2>Are you sure you want to delete?</h2>
                 <button className="btn btn-sm btn-danger" onClick={handleDelete}>Yes</button>
                 <button className="btn btn-sm btn-primary" onClick={onCloseModal}>No</button>
             </Modal>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                className="toast-container"
+            />
+
         </>
     )
 }

@@ -4,6 +4,9 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -29,27 +32,28 @@ const CreateNewUser = () => {
         if (!user_name || !age || !position || !gender || !location) {
             setError(true);
             return false;
-          }
-        
-          try {
+        }
+
+        try {
             await axios.post("http://localhost:8050/users", {
-              user_name,
-              age,
-              position,
-              gender,
-              location,
+                user_name,
+                age,
+                position,
+                gender,
+                location,
             });
-        
+
+            toast.success('You have create a New user successfull!');
             setSuccess(true);
             setTimeout(() => {
                 window.location.href = "/"
-             }, 2000)
+            }, 2000)
 
-          } catch (error) {
+        } catch (error) {
             // Handle any error from the API
             console.error(error);
             setError(true);
-          }
+        }
 
 
     }
@@ -62,6 +66,21 @@ const CreateNewUser = () => {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                className="toast-container"
+            />
+
+
             <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
 
@@ -89,7 +108,7 @@ const CreateNewUser = () => {
                                                             <input type="text" className="form-control" id="basic-default-fullname" placeholder="The Title for the Blog Post"
                                                                 name="user_name"
                                                                 onChange={(e) => setUserName(e.target.value)} />
-                                                            {error && !user_name && <div className="form-text text-danger">Please Enter Blog Title</div>
+                                                            {error && !user_name && <div className="form-text text-danger">Please Enter Full Name</div>
                                                             }
                                                         </div>
 
@@ -101,7 +120,7 @@ const CreateNewUser = () => {
                                                             <input type="text" className="form-control" id="basic-default-company" placeholder="The Permalink/Slug for the Blog Post"
                                                                 name="age"
                                                                 onChange={(e) => setAge(e.target.value)} />
-                                                            {error && !age && <div className="form-text text-danger">Please Enter Blog Slug</div>
+                                                            {error && !age && <div className="form-text text-danger">Please Enter Age</div>
                                                             }
                                                         </div>
 
@@ -116,7 +135,7 @@ const CreateNewUser = () => {
                                                         />
 
                                                     </div>
-                                                    {error && !position && <div className="form-text text-danger">Please Enter Blog Summary</div>
+                                                    {error && !position && <div className="form-text text-danger">Please Enter Job Position</div>
                                                     }
                                                 </div>
 
@@ -127,7 +146,7 @@ const CreateNewUser = () => {
                                                         name="location"
                                                         onChange={(e) => setLocation(e.target.value)}
                                                     />
-                                                    {error && !location && <div className="form-text text-danger">Please Enter Blog Keywords</div>
+                                                    {error && !location && <div className="form-text text-danger">Please Enter Location</div>
                                                     }
                                                 </div>
 
@@ -139,7 +158,7 @@ const CreateNewUser = () => {
                                                         name="gender"
                                                         onChange={(e) => setGender(e.target.value)}
                                                     />
-                                                    {error && !gender && <div className="form-text text-danger">Please Enter Blog Keywords</div>
+                                                    {error && !gender && <div className="form-text text-danger">Please Enter Gender</div>
                                                     }
                                                 </div>
                                                 <button type="submit" className="btn btn-primary"
