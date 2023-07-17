@@ -107,7 +107,7 @@ const CreateNewUser = () => {
                                                             <label className="form-label" htmlFor="basic-default-fullname">Name</label>
                                                             <input type="text" className="form-control" id="basic-default-fullname" placeholder="Enter Name"
                                                                 name="user_name"
-                                                                onChange={(e) => setUserName(e.target.value)} autoComplete="off"/>
+                                                                onChange={(e) => setUserName(e.target.value)} autoComplete="off" />
                                                             {error && !user_name && <div className="form-text text-danger">Please Enter Full Name</div>
                                                             }
                                                         </div>
@@ -119,9 +119,9 @@ const CreateNewUser = () => {
                                                             <label className="form-label" htmlFor="basic-default-company">Age</label>
                                                             <input type="text" className="form-control" id="basic-default-company" placeholder="Enter Age"
                                                                 name="age"
-                                                                onChange={(e) => setAge(e.target.value)} 
+                                                                onChange={(e) => setAge(e.target.value)}
                                                                 autoComplete="off"
-                                                                />
+                                                            />
                                                             {error && !age && <div className="form-text text-danger">Please Enter Age</div>
                                                             }
                                                         </div>
@@ -153,18 +153,27 @@ const CreateNewUser = () => {
                                                     {error && !location && <div className="form-text text-danger">Please Enter Location</div>
                                                     }
                                                 </div>
-
-
-
                                                 <div className="mb-3">
-                                                    <label className="form-label" htmlFor="basic-default-phone">Gender</label>
-                                                    <input type="text" id="basic-default-phone" className="form-control phone-mask" placeholder="Enter Gender"
+                                                    <label
+                                                        className="form-label"
+                                                        htmlFor="basic-default-phone"
+                                                    >
+                                                        Gender
+                                                    </label>
+                                                    <select
+                                                        className="form-control"
                                                         name="gender"
                                                         onChange={(e) => setGender(e.target.value)}
-                                                        autoComplete="off"
-                                                    />
-                                                    {error && !gender && <div className="form-text text-danger">Please Enter Gender</div>
-                                                    }
+                                                    >
+                                                        <option value="">Select Gender</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                    {error && !gender && (
+                                                        <div className="form-text text-danger">
+                                                            Please Select Gender
+                                                        </div>
+                                                    )}
                                                 </div>
                                                 <button type="submit" className="btn btn-primary"
                                                     onClick={handleSubmit}

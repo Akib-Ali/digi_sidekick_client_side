@@ -23,7 +23,7 @@ const UpdateUser = () => {
 
 
     const params = useParams()
-    console.log(params , "reaceive params")
+    console.log(params, "reaceive params")
 
     useEffect(() => {
         getBlogDetails()
@@ -39,7 +39,7 @@ const UpdateUser = () => {
         setPosition(result.position)
 
         console.log(result, "all result receive fro backend")
-        
+
     }
 
 
@@ -139,9 +139,9 @@ const UpdateUser = () => {
                                                             <label className="form-label" htmlFor="basic-default-company">Age</label>
                                                             <input type="text" className="form-control" id="basic-default-company" placeholder="Enter Age"
                                                                 name="age"
-                                                                onChange={(e) => setAge(e.target.value)} 
+                                                                onChange={(e) => setAge(e.target.value)}
                                                                 autoComplete="off"
-                                                                value={age}/>
+                                                                value={age} />
                                                             {error && !age && <div className="form-text text-danger">Please Enter Age</div>
                                                             }
                                                         </div>
@@ -175,19 +175,20 @@ const UpdateUser = () => {
                                                     {error && !location && <div className="form-text text-danger">Please Enter Location</div>
                                                     }
                                                 </div>
-
-
-
                                                 <div className="mb-3">
-                                                    <label className="form-label" htmlFor="basic-default-phone">Gender</label>
-                                                    <input type="text" id="basic-default-phone" className="form-control phone-mask" placeholder="Enter Gender"
+                                                    <label className="form-label" htmlFor="basic-default-gender">Gender</label>
+                                                    <select
+                                                        className="form-control"
+                                                        id="basic-default-gender"
                                                         name="gender"
                                                         onChange={(e) => setGender(e.target.value)}
-                                                        autoComplete="off"
                                                         value={gender}
-                                                    />
-                                                    {error && !gender && <div className="form-text text-danger">Please Enter Gender</div>
-                                                    }
+                                                    >
+                                                        <option value="">Select Gender</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                    {error && !gender && <div className="form-text text-danger">Please Select Gender</div>}
                                                 </div>
                                                 <button type="submit" className="btn btn-primary"
                                                     onClick={handleSubmit}

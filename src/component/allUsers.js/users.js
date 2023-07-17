@@ -20,7 +20,7 @@ const ShowUser = () => {
     const [isloading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 5;
-
+    const [selectedGender, setSelectedGender] = useState("");
 
     useEffect(() => {
         getData()
@@ -45,7 +45,11 @@ const ShowUser = () => {
 
     const pageCount = Math.ceil(data.length / itemsPerPage);
     const offset = currentPage * itemsPerPage;
-    const currentData = data.slice(offset, offset + itemsPerPage);
+    // const currentData = data.slice(offset, offset + itemsPerPage);
+
+
+    const filteredData = selectedGender ? data.filter((item) => item.gender === selectedGender) : data;
+    const currentData = filteredData.slice(offset, offset + itemsPerPage);
     return (
         <>
             <div className="layout-wrapper layout-content-navbar">
@@ -59,6 +63,15 @@ const ShowUser = () => {
 
                         <div className="content-wrapper">
 
+                            <div className="filter-container" style={{ display: "flex", justifyContent: "flex-end", width: "200px" }}>
+                                <select value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
+                                    <option value="">All</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+
+                            {/* filter end */}
 
                             <div className="container-xxl flex-grow-1 container-p-y">
                                 {/* Here contain start */}
@@ -91,7 +104,7 @@ const ShowUser = () => {
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
-                                                {data.length > 0 && currentData.map((elem, index) => {
+                                                {filteredData.length > 0 && currentData.map((elem, index) => {
                                                     return (
                                                         <tbody className="table-border-bottom-0" key={index}>
                                                             <tr>
