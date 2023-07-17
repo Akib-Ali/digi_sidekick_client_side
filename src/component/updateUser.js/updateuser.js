@@ -56,7 +56,7 @@ const UpdateUser = () => {
         }
 
         try {
-            await axios.post("http://localhost:8050/users", {
+            await axios.put(`http://localhost:8050/user/${params._id}`, {
                 user_name,
                 age,
                 position,
@@ -64,7 +64,7 @@ const UpdateUser = () => {
                 location,
             });
 
-            toast.success('You have create a New user successfull!');
+            toast.success('You have update user successfull!');
             setSuccess(true);
             setTimeout(() => {
                 window.location.href = "/"
