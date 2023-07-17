@@ -35,7 +35,8 @@ const CreateNewUser = () => {
         }
 
         try {
-            await axios.post("http://localhost:8050/users", {
+            // await axios.post("http://localhost:8050/users", {
+                await axios.post("https://shiny-handkerchief-duck.cyclic.app/users",{
                 user_name,
                 age,
                 position,

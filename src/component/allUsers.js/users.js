@@ -28,7 +28,8 @@ const ShowUser = () => {
     }, [])
     const getData = async () => {
 
-        let result = await axios.get("http://localhost:8050/users")
+        // let result = await axios.get("http://localhost:8050/users")
+        let result = await axios.get("https://shiny-handkerchief-duck.cyclic.app/users")
         setData(result.data)
         setLoading(false)
     }
@@ -216,7 +217,8 @@ const DeleteModal = (props) => {
 
         let api = await axios({
             method: "delete",
-            url: (`http://localhost:8050/user/${props.id}`)
+            // url: (`http://localhost:8050/user/${props.id}`)
+            url:(`https://shiny-handkerchief-duck.cyclic.app/user/${props.id}`)
         })
         toast.success('You have delete a record successfully!');
         props.refetch()

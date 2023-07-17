@@ -30,7 +30,8 @@ const UpdateUser = () => {
     }, [])
 
     const getBlogDetails = async () => {
-        let result = await fetch(`http://localhost:8050/user/${params._id}`)
+        // let result = await fetch(`http://localhost:8050/user/${params._id}`)
+        let result = await fetch(`https://shiny-handkerchief-duck.cyclic.app/user/${params._id}`)
         result = await result.json()
         setUserName(result.user_name)
         setAge(result.age)
@@ -56,7 +57,8 @@ const UpdateUser = () => {
         }
 
         try {
-            await axios.put(`http://localhost:8050/user/${params._id}`, {
+            // await axios.put(`http://localhost:8050/user/${params._id}`, {
+                await axios.put(`https://shiny-handkerchief-duck.cyclic.app/user/${params._id}`,{
                 user_name,
                 age,
                 position,
