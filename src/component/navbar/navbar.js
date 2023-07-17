@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Navbar = () => {
 
     // const navigate = useNavigate()
@@ -35,12 +36,13 @@ const Navbar = () => {
                     <li className="nav-item lh-1 me-3">
 
                     <span style={{ color: "black", fontWeight: "bold" }}>
-                            Home
+                        <Link to="/all-users">Home</Link>   
                             
                             </span> &nbsp;&nbsp;
 
                             <span style={{ color: "black", fontWeight: "bold" }}>
-                            Create User
+                                <Link to="/create-new-user">Create User</Link>
+                        
                             
                             </span> &nbsp;&nbsp;
 
