@@ -15,6 +15,7 @@ const CreateNewUser = () => {
     const [position, setPosition] = useState("")
     const [gender, setGender] = useState("")
     const [location, setLocation] = useState("")
+    const [success, setSuccess] = useState(false);
 
 
     console.log({ user_name, age, position, gender, location })
@@ -25,8 +26,30 @@ const CreateNewUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (!user_name || !age || !position || !gender || !location) {
+            setError(true);
+            return false;
+          }
+        
+          try {
+            await axios.post("http://localhost:8050/users", {
+              user_name,
+              age,
+              position,
+              gender,
+              location,
+            });
+        
+            setSuccess(true);
+            setTimeout(() => {
+                window.location.href = "/"
+             }, 2000)
 
-        console.log("success")
+          } catch (error) {
+            // Handle any error from the API
+            console.error(error);
+            setError(true);
+          }
 
 
     }
@@ -66,7 +89,7 @@ const CreateNewUser = () => {
                                                             <input type="text" className="form-control" id="basic-default-fullname" placeholder="The Title for the Blog Post"
                                                                 name="user_name"
                                                                 onChange={(e) => setUserName(e.target.value)} />
-                                                            {error && !blog_title && <div className="form-text text-danger">Please Enter Blog Title</div>
+                                                            {error && !user_name && <div className="form-text text-danger">Please Enter Blog Title</div>
                                                             }
                                                         </div>
 
@@ -78,7 +101,7 @@ const CreateNewUser = () => {
                                                             <input type="text" className="form-control" id="basic-default-company" placeholder="The Permalink/Slug for the Blog Post"
                                                                 name="age"
                                                                 onChange={(e) => setAge(e.target.value)} />
-                                                            {error && !blog_slug && <div className="form-text text-danger">Please Enter Blog Slug</div>
+                                                            {error && !age && <div className="form-text text-danger">Please Enter Blog Slug</div>
                                                             }
                                                         </div>
 
@@ -93,7 +116,7 @@ const CreateNewUser = () => {
                                                         />
 
                                                     </div>
-                                                    {error && !blog_summary && <div className="form-text text-danger">Please Enter Blog Summary</div>
+                                                    {error && !position && <div className="form-text text-danger">Please Enter Blog Summary</div>
                                                     }
                                                 </div>
 
@@ -104,7 +127,7 @@ const CreateNewUser = () => {
                                                         name="location"
                                                         onChange={(e) => setLocation(e.target.value)}
                                                     />
-                                                    {error && !blog_keyword && <div className="form-text text-danger">Please Enter Blog Keywords</div>
+                                                    {error && !location && <div className="form-text text-danger">Please Enter Blog Keywords</div>
                                                     }
                                                 </div>
 
@@ -116,7 +139,7 @@ const CreateNewUser = () => {
                                                         name="gender"
                                                         onChange={(e) => setGender(e.target.value)}
                                                     />
-                                                    {error && !blog_keyword && <div className="form-text text-danger">Please Enter Blog Keywords</div>
+                                                    {error && !gender && <div className="form-text text-danger">Please Enter Blog Keywords</div>
                                                     }
                                                 </div>
                                                 <button type="submit" className="btn btn-primary"
