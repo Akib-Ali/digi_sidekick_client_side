@@ -86,7 +86,7 @@ const ShowUser = () => {
                                                                 <td>{elem.location}</td>
                                                                 <td>{elem.gender}</td>
                                                                 <td>
-                                                                    <Link to={`/edit-blog/${elem._id}`}>
+                                                                    <Link to={`/update-user/${elem._id}`}>
                                                                         <button className="btn btn-sm btn-primary">Edit</button>
                                                                     </Link>
 
