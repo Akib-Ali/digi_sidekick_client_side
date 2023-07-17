@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       {/* <Navbar/> */}
       <AllRoutes/>
-     <h1>all component</h1>
+    
     </div>
   );
 }

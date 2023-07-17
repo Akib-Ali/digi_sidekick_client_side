@@ -36,7 +36,7 @@ const Navbar = () => {
                     <li className="nav-item lh-1 me-3">
 
                     <span style={{ color: "black", fontWeight: "bold" }}>
-                        <Link to="/all-users">Home</Link>   
+                        <Link to="/">Home</Link>   
                             
                             </span> &nbsp;&nbsp;
 
